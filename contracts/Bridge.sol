@@ -60,6 +60,7 @@ contract HyperBoreBridge is ReentrancyGuard, Ownable, Pausable {
     event RequiredSignaturesChanged(uint256 newThreshold);
     event FeeBasisPointsUpdated(uint16 newFeeBasisPoints);
     event TokenAddressUpdated(address indexed token_address);
+    event TreasuryUpdated(address indexed treasury);
 
     event TokensReleased(
         address indexed recipient,
@@ -230,7 +231,12 @@ contract HyperBoreBridge is ReentrancyGuard, Ownable, Pausable {
         fee_basis_points = newFeeBasisPoints;
         emit FeeBasisPointsUpdated(newFeeBasisPoints);
     }
-    
+
+    function updateTreasury(address newTreasury) external onlyOwner {
+        treasury = newTreasury;
+        emit TreasuryUpdated(treasury);
+    }
+
     function updateTokenAddress(address newTokenAddress) external onlyOwner {
         token_address = newTokenAddress;
         emit TokenAddressUpdated(token_address);
