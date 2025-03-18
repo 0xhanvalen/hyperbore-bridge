@@ -122,7 +122,7 @@ contract HyperBoreBridge is ReentrancyGuard, Ownable, Pausable {
     }
     
     function _generateNonce(uint256 amount, bytes32 solanaRecipient) internal view returns (bytes32) {
-        return keccak256(abi.encodePacked(block.prevrandao, block.timestamp, msg.sender, block.number, amount, solanaRecipient));
+        return keccak256(abi.encode(block.prevrandao, block.timestamp, msg.sender, block.number, amount, solanaRecipient, token_address));
     }
     
     /**
@@ -155,6 +155,7 @@ contract HyperBoreBridge is ReentrancyGuard, Ownable, Pausable {
                 recipient,
                 amount,
                 solanaTransactionId,
+                token_address,
                 nonce
             )
         );
